@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html id="ne_wrap" phone="1"> 
+<meta http-equiv="content-type" content="text/html;charset=utf-8">
+<script type="text/javascript" src="core.js"></script>
+<script type="text/javascript" src="crypt.js"></script>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>dopass</title>
+</head>
+<style>
+input ,span{display: block;width:80%;margin:1rem auto;height: 2rem;font-size: 1.2rem;outline: none;}
+input{border-radius: 4px; border: 1px solid #ccc;}
+.button {width: 10rem;height:2rem;background-color: #0b77bf; color:#fff;border: solid 1px #116dab;cursor: pointer;}
+.button:hover{background-color: #08781f;}
+</style>
+<body>
+<div style="width:75%;margin:3rem auto;">
+<span>信息字符串 :</span>
+<input type="text" id="string">
+<span>key :</span>
+<input type="password" id="key">
+<input type="button" id="dopass" value="解密/加密" class="button">
+<input type="button" id="clear" value="清除key" class="button">
+<span>结果 :</span>
+<input type="text" id="result">
+</div>
+</body>
+</html>
+<script type="text/javascript">
+  var G = function(id){
+    return document.getElementById(id);
+  }
+  window.onload = function(){
+    var key = localStorage.getItem("key");
+    if(key!="")
+      G("key").value = key;
+  }
+  G("dopass").addEventListener("click",function(){
+    G("result").value = "";
+    G("result").value = dopass(G("string").value,G("key").value);
+  });
+  G("key").addEventListener("change",function(){
+    localStorage.setItem("key",G("key").value);
+  });
+  G("clear").addEventListener("click",function(){
+    localStorage.setItem("key","");
+    G("key").value = "";
+  });
+</script>
